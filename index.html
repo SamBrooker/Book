@@ -6,7 +6,7 @@
 <title>From Songs to Smart Contracts — Sam Brooker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Kalam:wght@400;700&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -89,12 +89,13 @@
   }
 
   h1 {
-    font-family: 'Pacifico', cursive;
-    font-size: clamp(2.6rem, 5.5vw, 5rem);
-    font-weight: 400;
-    line-height: 1.1;
+    font-family: 'Outfit', sans-serif;
+    font-size: clamp(2.8rem, 5.5vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
     color: var(--cyan);
     margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
   }
 
   .subtitle {
@@ -106,11 +107,12 @@
   }
 
   .byline {
-    font-family: 'Kalam', cursive;
-    font-size: 2rem;
-    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
     color: var(--warm);
     margin-bottom: 2.5rem;
+    letter-spacing: -0.01em;
   }
 
   .hero-desc {
@@ -176,7 +178,26 @@
     50% { transform: translateY(-18px) rotate(-2deg); }
   }
 
-  .book-img {
+  .sticker {
+    position: absolute;
+    bottom: -30px;
+    right: -40px;
+    width: 130px;
+    height: 130px;
+    transform: rotate(12deg);
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+    transition: transform 0.3s ease;
+    z-index: 10;
+  }
+
+  .sticker:hover {
+    transform: rotate(6deg) scale(1.08);
+  }
+
+  .sticker svg {
+    width: 100%;
+    height: 100%;
+  }
     width: 300px;
     border-radius: 4px 12px 12px 4px;
     box-shadow:
@@ -344,9 +365,9 @@
   .chapter-card:hover::before { height: 100%; }
 
   .ch-num {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Outfit', sans-serif;
     font-size: 3rem;
-    font-weight: 400;
+    font-weight: 800;
     color: rgba(41,182,246,0.13);
     line-height: 1;
     margin-bottom: 0.5rem;
@@ -463,11 +484,12 @@
   }
 
   .cta h2 {
-    font-family: 'Pacifico', cursive;
+    font-family: 'Outfit', sans-serif;
     font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-    font-weight: 400;
+    font-weight: 800;
     color: var(--cyan);
     margin-bottom: 1rem;
+    letter-spacing: -0.02em;
   }
 
   .cta p {
@@ -478,7 +500,19 @@
     line-height: 1.8;
   }
 
-  .isbn-display {
+  .btn-coming-soon {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    border-radius: 3px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border: 1px dashed rgba(255,255,255,0.2);
+    color: var(--muted);
+    background: transparent;
+    cursor: default;
+  }
     font-family: monospace;
     font-size: 0.8rem;
     color: var(--muted);
@@ -502,10 +536,12 @@
   }
 
   .nav-brand {
-    font-family: 'Pacifico', cursive;
-    font-size: 1.1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
     color: var(--cyan);
     text-decoration: none;
+    letter-spacing: -0.01em;
   }
 
   .nav-links {
@@ -543,8 +579,8 @@
   }
 
   .footer-brand {
-    font-family: 'Kalam', cursive;
-    font-size: 1.1rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--warm);
   }
@@ -619,6 +655,25 @@
   <div class="hero-visual fade-up" style="animation-delay:0.2s">
     <div class="book-wrap">
       <img src="bookcover.jpg" alt="From Songs to Smart Contracts — Sam Brooker" class="book-img">
+      <div class="sticker">
+        <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <path id="topArc2" d="M 150,150 m -98,0 a 98,98 0 1,1 196,0"/>
+          </defs>
+          <circle cx="153" cy="155" r="118" fill="rgba(0,0,0,0.18)"/>
+          <circle cx="150" cy="150" r="118" fill="#f5c842"/>
+          <circle cx="150" cy="150" r="112" fill="none" stroke="#e8a800" stroke-width="3.5" stroke-dasharray="5.5 3.5"/>
+          <circle cx="150" cy="150" r="98" fill="#f5c842"/>
+          <circle cx="150" cy="150" r="98" fill="none" stroke="#c8890a" stroke-width="1.5"/>
+          <text font-family="Outfit, sans-serif" font-size="11.5" font-weight="700" fill="#7a4800" letter-spacing="2">
+            <textPath href="#topArc2" startOffset="50%" text-anchor="middle">THE PERFECT TRAVEL BOOK</textPath>
+          </text>
+          <line x1="90" y1="138" x2="210" y2="138" stroke="#c8890a" stroke-width="1" opacity="0.5"/>
+          <text x="150" y="172" text-anchor="middle" font-family="Outfit, sans-serif" font-size="62" font-weight="800" fill="#1e2535" letter-spacing="-2">2 HR</text>
+          <line x1="90" y1="186" x2="210" y2="186" stroke="#c8890a" stroke-width="1" opacity="0.5"/>
+          <text x="150" y="206" text-anchor="middle" font-family="Outfit, sans-serif" font-size="15" font-weight="700" fill="#7a4800" letter-spacing="5">READ</text>
+        </svg>
+      </div>
     </div>
   </div>
 </section>
@@ -753,11 +808,11 @@
   <p>
     Paperback available now. No prior crypto knowledge required — just curiosity and the willingness to ask why.
   </p>
-  <div class="btn-group" style="justify-content:center">
-    <!--
-      REPLACE href="#" with your Amazon/Barnes & Noble/etc. link
-    -->
-    <a href="https://shop.ingramspark.com/b/084?params=GuWLXzp6C28JHRVvd6HSxYzZKN4lW31BPGZxVStxATQ" target="_blank" class="btn btn-primary">Get the Book</a>
+  <div class="btn-group" style="justify-content:center; flex-wrap:wrap;">
+    <a href="https://shop.ingramspark.com/b/084?params=GuWLXzp6C28JHRVvd6HSxYzZKN4lW31BPGZxVStxATQ" target="_blank" class="btn btn-primary">IngramSpark</a>
+    <a href="https://www.barnesandnoble.com/w/from-songs-to-smart-contracts-an-introduction-to-cyrpto-sam-brooker/1149599382?ean=9798234007902" target="_blank" class="btn btn-outline">Barnes &amp; Noble</a>
+    <a href="https://www.booksamillion.com/p/From-Songs-Smart-Contracts-Introduction/Sam-Brooker/9798234007902" target="_blank" class="btn btn-outline">Books-A-Million</a>
+    <div class="btn btn-coming-soon">🎧 Audiobook — Coming Soon</div>
   </div>
   <p class="isbn-display">ISBN: 979-8-234-00790-2 &nbsp;·&nbsp; Paperback &nbsp;·&nbsp; Published 2026</p>
 </section>
