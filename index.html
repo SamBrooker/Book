@@ -44,15 +44,17 @@
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    position: relative;
-    z-index: 101;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 102;
+    height: 36px;
   }
   .announce-bar span { margin: 0 1rem; opacity: 0.5; }
 
   /* ── NAV ── */
   nav {
     position: fixed;
-    top: 0; left: 0; right: 0;
+    top: 36px; left: 0; right: 0;
     z-index: 100;
     display: flex;
     justify-content: space-between;
@@ -89,7 +91,7 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 4rem;
-    padding: 8rem 8vw 5rem;
+    padding: 10rem 8vw 5rem;
     overflow: hidden;
     background: var(--darkest);
   }
@@ -492,7 +494,7 @@
 
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; padding-top: 8rem; text-align: center; gap: 3rem; }
+    .hero { grid-template-columns: 1fr; padding-top: 10rem; text-align: center; gap: 3rem; }
     .hero-visual { order: -1; }
     .eyebrow { justify-content: center; }
     .hero-desc, .hero-quote { margin-left: auto; margin-right: auto; }
