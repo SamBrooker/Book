@@ -47,12 +47,16 @@
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 102;
-    height: 44px;
+    min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    line-height: 1.4;
   }
-  .announce-bar span { margin: 0 1rem; opacity: 0.5; }
+  .announce-bar span { margin: 0 0.5rem; opacity: 0.5; }
+  .announce-desktop { display: inline; }
 
   /* ── NAV ── */
   nav {
@@ -513,9 +517,10 @@
   }
   @media (max-width: 580px) {
     .nav-links { display: none; }
-    .hero { padding: 7rem 5vw 3rem; }
+    .hero { padding: 9rem 5vw 3rem; }
     .book-wrap { width: 200px; }
-    .announce-bar span { display: none; }
+    .announce-desktop { display: none; }
+    nav { top: 44px; }
   }
 
   /* ── ANIMATIONS ── */
@@ -527,7 +532,7 @@
 
 <!-- ANNOUNCEMENT BAR -->
 <div class="announce-bar">
-  New Release 2026 <span>·</span> Barnes &amp; Noble <span>·</span> Books-A-Million <span>·</span> IngramSpark <span>·</span> 🎧 Audiobook Coming Soon
+  <span class="announce-desktop">New Release 2026 <span>·</span> Barnes &amp; Noble <span>·</span> Books-A-Million <span>·</span> IngramSpark <span>·</span></span> 🎧 Audiobook Coming Soon
 </div>
 
 <nav>
