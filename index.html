@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>From Songs to Smart Contracts — Sam Brooker</title>
+<meta name="description" content="A singer songwriter turned DeFi builder walks you through Bitcoin, Ethereum, wallets, and Web3 — without the hype, without the jargon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@600;700;800&family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -12,6 +13,7 @@
   :root {
     --dark: #2b3244;
     --darker: #1e2535;
+    --darkest: #151c2c;
     --cyan: #29b6f6;
     --green: #b5d42a;
     --warm: #ffffff;
@@ -32,16 +34,22 @@
     overflow-x: hidden;
   }
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
+  /* ── ANNOUNCEMENT BAR ── */
+  .announce-bar {
+    background: var(--cyan);
+    color: #0d1825;
+    text-align: center;
+    padding: 0.55rem 1rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 101;
   }
+  .announce-bar span { margin: 0 1rem; opacity: 0.5; }
 
-  /* NAV */
+  /* ── NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -49,12 +57,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.25rem 8vw;
-    background: rgba(27,32,50,0.9);
+    padding: 1.1rem 8vw;
+    background: rgba(21,28,44,0.95);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
   }
-
   .nav-brand {
     font-family: 'Outfit', sans-serif;
     font-size: 1rem;
@@ -63,15 +71,9 @@
     text-decoration: none;
     letter-spacing: -0.01em;
   }
-
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
-
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     letter-spacing: 0.05em;
     color: var(--muted);
     text-decoration: none;
@@ -79,7 +81,7 @@
   }
   .nav-links a:hover { color: var(--warm); }
 
-  /* HERO */
+  /* ── HERO ── */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -87,25 +89,48 @@
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 4rem;
-    padding: 5rem 8vw;
+    padding: 8rem 8vw 5rem;
     overflow: hidden;
+    background: var(--darkest);
   }
 
-  .hero::after {
-    content: '';
+  /* Animated network background */
+  .network-bg {
     position: absolute;
-    top: -20%; right: -15%;
-    width: 60vw; height: 60vw;
-    background: radial-gradient(circle, rgba(41,182,246,0.07) 0%, transparent 70%);
+    inset: 0;
     pointer-events: none;
+    overflow: hidden;
   }
+  .net-dot {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--cyan);
+    animation: netPulse 4s ease-in-out infinite;
+  }
+  .net-dot:nth-child(1)  { width:180px; height:180px; top:5%;  right:5%;  opacity:0.04; animation-delay:0s; }
+  .net-dot:nth-child(2)  { width:80px;  height:80px;  top:55%; right:15%; opacity:0.06; animation-delay:1s; }
+  .net-dot:nth-child(3)  { width:260px; height:260px; top:-8%; right:20%; opacity:0.03; animation-delay:2s; }
+  .net-dot:nth-child(4)  { width:50px;  height:50px;  top:75%; right:8%;  opacity:0.07; animation-delay:0.5s; }
+  .net-dot:nth-child(5)  { width:100px; height:100px; top:30%; right:35%; opacity:0.04; animation-delay:1.5s; }
+  @keyframes netPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.2)} }
+
+  .net-line {
+    position: absolute;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(41,182,246,0.15), transparent);
+    animation: lineFade 5s ease-in-out infinite;
+  }
+  .net-line:nth-child(6) { width:300px; top:25%; right:10%; transform:rotate(-15deg); animation-delay:0s; }
+  .net-line:nth-child(7) { width:200px; top:50%; right:25%; transform:rotate(20deg);  animation-delay:1.2s; }
+  .net-line:nth-child(8) { width:180px; top:70%; right:12%; transform:rotate(-8deg);  animation-delay:2.4s; }
+  @keyframes lineFade { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
   .hero-text { position: relative; z-index: 1; }
 
   .eyebrow {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 500;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--cyan);
     margin-bottom: 1.5rem;
@@ -133,7 +158,7 @@
 
   .subtitle {
     font-family: 'DM Serif Display', serif;
-    font-size: clamp(1rem, 2vw, 1.4rem);
+    font-size: clamp(1rem, 2vw, 1.35rem);
     font-style: italic;
     color: var(--green);
     margin-bottom: 2rem;
@@ -141,26 +166,52 @@
 
   .byline {
     font-family: 'Outfit', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--warm);
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     letter-spacing: -0.01em;
   }
 
   .hero-desc {
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.8);
-    max-width: 480px;
-    margin-bottom: 3rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    max-width: 460px;
+    margin-bottom: 1.5rem;
+    line-height: 1.85;
   }
+
+  /* Hero pull quote */
+  .hero-quote {
+    background: rgba(41,182,246,0.07);
+    border-left: 3px solid var(--green);
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 2rem;
+    max-width: 460px;
+    border-radius: 0 4px 4px 0;
+  }
+  .hero-quote p {
+    font-family: 'DM Serif Display', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.6;
+    margin-bottom: 0.3rem;
+  }
+  .hero-quote cite {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-style: normal;
+  }
+  .stars { color: #f5c842; font-size: 0.75rem; margin-right: 0.4rem; }
 
   .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
 
   .btn {
     display: inline-block;
-    padding: 0.85rem 2rem;
+    padding: 0.9rem 2rem;
     border-radius: 3px;
     font-family: 'DM Sans', sans-serif;
     font-size: 0.9rem;
@@ -170,14 +221,25 @@
     transition: all 0.25s ease;
     cursor: pointer;
     border: none;
+    position: relative;
+    overflow: hidden;
   }
-  .btn-primary { background: var(--cyan); color: var(--darker); }
-  .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(41,182,246,0.3); }
+  .btn-primary { background: var(--cyan); color: var(--darkest); }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+    animation: shimmer 2.8s ease-in-out infinite;
+  }
+  @keyframes shimmer { 0%{left:-100%} 55%,100%{left:160%} }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(41,182,246,0.35); }
   .btn-outline { border: 1px solid var(--border); color: var(--cyan); background: transparent; }
-  .btn-outline:hover { border-color: var(--cyan); background: rgba(41,182,246,0.07); transform: translateY(-2px); }
+  .btn-outline:hover { border-color: var(--cyan); background: rgba(41,182,246,0.08); transform: translateY(-2px); }
   .btn-coming-soon {
     display: inline-block;
-    padding: 0.85rem 2rem;
+    padding: 0.9rem 2rem;
     border-radius: 3px;
     font-family: 'DM Sans', sans-serif;
     font-size: 0.9rem;
@@ -189,7 +251,7 @@
     cursor: default;
   }
 
-  /* BOOK + STICKER */
+  /* ── BOOK + STICKER ── */
   .hero-visual {
     position: relative;
     z-index: 1;
@@ -203,18 +265,16 @@
     width: 260px;
     animation: float 6s ease-in-out infinite;
   }
-
   @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(-2deg); }
-    50% { transform: translateY(-18px) rotate(-2deg); }
+    0%,100% { transform: translateY(0px) rotate(-2deg); }
+    50%      { transform: translateY(-20px) rotate(-2deg); }
   }
 
   .book-img {
     width: 100%;
-    max-width: 260px;
     display: block;
     border-radius: 4px 12px 12px 4px;
-    box-shadow: -8px 0 0 rgba(0,0,0,0.35), -16px 8px 40px rgba(0,0,0,0.5), 0 20px 60px rgba(41,182,246,0.15);
+    box-shadow: -8px 0 0 rgba(0,0,0,0.4), -16px 8px 40px rgba(0,0,0,0.55), 0 24px 70px rgba(41,182,246,0.18);
   }
 
   .sticker {
@@ -224,18 +284,52 @@
     width: 100px;
     height: 100px;
     transform: rotate(12deg);
-    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.35));
+    filter: drop-shadow(0 4px 14px rgba(0,0,0,0.4));
     transition: transform 0.3s ease;
     z-index: 10;
   }
-  .sticker:hover { transform: rotate(6deg) scale(1.08); }
+  .sticker:hover { transform: rotate(6deg) scale(1.1); }
   .sticker svg { width: 100%; height: 100%; }
 
-  /* SECTIONS */
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display: flex;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--darkest);
+  }
+  .stat-item {
+    flex: 1;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    transition: background 0.2s;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(41,182,246,0.05); }
+  .stat-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    display: block;
+  }
+
+  /* ── SECTIONS ── */
   section { padding: 7rem 8vw; position: relative; }
 
   .section-label {
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 500;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -252,28 +346,21 @@
   }
   h2 em { font-style: italic; color: var(--cyan); }
 
-  /* ABOUT */
+  /* ── ABOUT ── */
   .about { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.6fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
+  .about-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 5rem; align-items: center; }
   .author-photo-wrap { position: relative; }
 
   .author-photo {
     width: 100%;
-    max-width: 340px;
+    max-width: 320px;
     aspect-ratio: 3/4;
     object-fit: cover;
     object-position: top;
     border-radius: 4px;
     display: block;
-    filter: grayscale(20%) contrast(1.05);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    filter: grayscale(15%) contrast(1.05);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.55);
   }
 
   .photo-accent {
@@ -286,20 +373,18 @@
     z-index: -1;
   }
 
-  .about-text p { font-size: 1.05rem; color: rgba(255,255,255,0.85); margin-bottom: 1.2rem; line-height: 1.85; }
-
+  .about-text p { font-size: 1rem; color: rgba(255,255,255,0.82); margin-bottom: 1.2rem; line-height: 1.85; }
   .fun-facts { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 2rem; }
-  .fun-fact { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.95rem; color: rgba(255,255,255,0.75); }
-  .fact-dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 0.55rem; flex-shrink: 0; }
+  .fun-fact { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.92rem; color: rgba(255,255,255,0.72); }
+  .fact-dot { width: 6px; height: 6px; background: var(--cyan); border-radius: 50%; margin-top: 0.58rem; flex-shrink: 0; }
 
-  /* CHAPTERS */
+  /* ── CHAPTERS ── */
   .chapters-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
+    gap: 1.25rem;
     margin-top: 3rem;
   }
-
   .chapter-card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -317,33 +402,13 @@
     background: var(--cyan);
     transition: height 0.35s ease;
   }
-  .chapter-card:hover { transform: translateY(-4px); border-color: rgba(41,182,246,0.35); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+  .chapter-card:hover { transform: translateY(-4px); border-color: rgba(41,182,246,0.4); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
   .chapter-card:hover::before { height: 100%; }
-
-  .ch-num { font-family: 'Outfit', sans-serif; font-size: 3rem; font-weight: 800; color: rgba(41,182,246,0.13); line-height: 1; margin-bottom: 0.5rem; }
+  .ch-num { font-family: 'Outfit', sans-serif; font-size: 2.8rem; font-weight: 800; color: rgba(41,182,246,0.12); line-height: 1; margin-bottom: 0.5rem; }
   .ch-title { font-family: 'DM Serif Display', serif; font-size: 1rem; color: var(--warm); margin-bottom: 0.5rem; }
-  .ch-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  .ch-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.65; }
 
-  /* QUOTES */
-  .quotes { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-
-  .quotes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
-
-  .quote-card { padding: 2rem; border: 1px solid var(--border); border-radius: 4px; position: relative; }
-  .quote-card::before {
-    content: '"';
-    font-family: 'DM Serif Display', serif;
-    font-size: 5rem;
-    color: var(--cyan);
-    opacity: 0.2;
-    position: absolute;
-    top: -0.5rem; left: 1.25rem;
-    line-height: 1;
-  }
-  .quote-text { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.05rem; line-height: 1.7; color: var(--warm); margin-bottom: 1rem; position: relative; z-index: 1; }
-  .quote-attr { font-size: 0.78rem; letter-spacing: 0.1em; color: var(--cyan); text-transform: uppercase; }
-
-  /* EXCERPT */
+  /* ── EXCERPT ── */
   .excerpt-block {
     max-width: 680px;
     background: var(--card);
@@ -353,78 +418,112 @@
     margin: 3rem auto 0;
     font-family: 'DM Serif Display', serif;
     font-style: italic;
-    font-size: 1.15rem;
+    font-size: 1.2rem;
     line-height: 1.85;
-    color: rgba(255,255,255,0.9);
+    color: rgba(255,255,255,0.92);
   }
   .excerpt-source {
     display: block;
     margin-top: 1.25rem;
     font-family: 'DM Sans', sans-serif;
     font-style: normal;
-    font-size: 0.78rem;
+    font-size: 0.75rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--muted);
   }
 
-  /* CTA */
-  .cta { text-align: center; background: linear-gradient(160deg, #0a1520 0%, var(--dark) 100%); position: relative; overflow: hidden; }
+  /* ── QUOTES ── */
+  .quotes { background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .quotes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .quote-card { padding: 2rem; border: 1px solid var(--border); border-radius: 4px; position: relative; transition: border-color 0.3s; }
+  .quote-card:hover { border-color: rgba(41,182,246,0.4); }
+  .quote-card::before {
+    content: '"';
+    font-family: 'DM Serif Display', serif;
+    font-size: 5rem;
+    color: var(--cyan);
+    opacity: 0.15;
+    position: absolute;
+    top: -0.5rem; left: 1.25rem;
+    line-height: 1;
+  }
+  .quote-stars { color: #f5c842; font-size: 0.8rem; margin-bottom: 0.75rem; display: block; }
+  .quote-text { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.02rem; line-height: 1.7; color: var(--warm); margin-bottom: 1rem; position: relative; z-index: 1; }
+  .quote-attr { font-size: 0.75rem; letter-spacing: 0.1em; color: var(--cyan); text-transform: uppercase; }
+
+  /* ── CTA ── */
+  .cta {
+    text-align: center;
+    background: var(--darkest);
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+  }
   .cta::before {
     content: '';
     position: absolute;
     top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%,-50%);
     width: 80vw; height: 80vw;
-    background: radial-gradient(circle, rgba(41,182,246,0.05) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(41,182,246,0.06) 0%, transparent 65%);
     pointer-events: none;
   }
-  .cta h2 { font-family: 'Outfit', sans-serif; font-size: clamp(2.2rem, 4.5vw, 3.5rem); font-weight: 800; color: var(--cyan); margin-bottom: 1rem; letter-spacing: -0.02em; }
-  .cta p { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto 2.5rem; line-height: 1.8; }
+  .cta h2 { font-family: 'Outfit', sans-serif; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 800; color: var(--cyan); margin-bottom: 1rem; letter-spacing: -0.02em; }
+  .cta > p { font-size: 1.05rem; color: rgba(255,255,255,0.65); max-width: 500px; margin: 0 auto 2.5rem; line-height: 1.85; }
+  .isbn-display { font-family: monospace; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.15em; margin-top: 2rem; display: block; }
 
-  .isbn-display { font-family: monospace; font-size: 0.8rem; color: var(--muted); letter-spacing: 0.15em; margin-top: 2rem; }
-
-  /* FOOTER */
+  /* ── FOOTER ── */
   footer {
-    padding: 3rem 8vw;
+    padding: 2.5rem 8vw;
     border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     color: var(--muted);
     flex-wrap: wrap;
     gap: 1rem;
+    background: var(--darkest);
   }
   footer a { color: var(--cyan); text-decoration: none; }
+  footer a:hover { color: var(--warm); }
   .footer-brand { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--warm); }
 
-  /* RESPONSIVE */
+  /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; padding-top: 7rem; text-align: center; }
+    .hero { grid-template-columns: 1fr; padding-top: 8rem; text-align: center; gap: 3rem; }
     .hero-visual { order: -1; }
     .eyebrow { justify-content: center; }
-    .hero-desc { margin-left: auto; margin-right: auto; }
+    .hero-desc, .hero-quote { margin-left: auto; margin-right: auto; }
     .btn-group { justify-content: center; }
-    .about-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     .author-photo-wrap { display: flex; justify-content: center; }
+    .stats-bar { flex-wrap: wrap; }
+    .stat-item { flex: 1 1 50%; border-bottom: 1px solid var(--border); }
     footer { flex-direction: column; text-align: center; }
     nav { padding: 1rem 5vw; }
     .nav-links { gap: 1.25rem; }
     section { padding: 5rem 6vw; }
   }
-
   @media (max-width: 580px) {
     .nav-links { display: none; }
-    .hero { padding: 6rem 5vw 3rem; }
+    .hero { padding: 7rem 5vw 3rem; }
     .book-wrap { width: 200px; }
+    .announce-bar span { display: none; }
   }
 
-  .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  /* ── ANIMATIONS ── */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .fade-up.visible { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar">
+  New Release 2026 <span>·</span> Barnes &amp; Noble <span>·</span> Books-A-Million <span>·</span> IngramSpark <span>·</span> 🎧 Audiobook Coming Soon
+</div>
 
 <nav>
   <a class="nav-brand" href="#">Songs → Smart Contracts</a>
@@ -438,6 +537,12 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="network-bg">
+    <div class="net-dot"></div><div class="net-dot"></div><div class="net-dot"></div>
+    <div class="net-dot"></div><div class="net-dot"></div>
+    <div class="net-line"></div><div class="net-line"></div><div class="net-line"></div>
+  </div>
+
   <div class="hero-text fade-up">
     <div class="eyebrow">New Book — Published 2026</div>
     <h1>From Songs<br>to Smart<br>Contracts</h1>
@@ -446,8 +551,12 @@
     <p class="hero-desc">
       A singer songwriter turned DeFi builder walks you through Bitcoin, Ethereum, wallets, and Web3 — without the hype, without the jargon, and without losing the plot.
     </p>
+    <div class="hero-quote">
+      <p>"Finally, a crypto book that explains the <em>why</em>, not just the hype."</p>
+      <cite><span class="stars">★★★★★</span>— J.A.</cite>
+    </div>
     <div class="btn-group">
-      <a href="https://shop.ingramspark.com/b/084?params=GuWLXzp6C28JHRVvd6HSxYzZKN4lW31BPGZxVStxATQ" target="_blank" class="btn btn-primary">Get the Book</a>
+      <a href="https://shop.ingramspark.com/b/084?params=GuWLXzp6C28JHRVvd6HSxYzZKN4lW31BPGZxVStxATQ" target="_blank" class="btn btn-primary">Get the Book →</a>
       <a href="#chapters" class="btn btn-outline">See What's Inside</a>
     </div>
   </div>
@@ -457,9 +566,7 @@
       <img src="bookcover.jpg" alt="From Songs to Smart Contracts — Sam Brooker" class="book-img">
       <div class="sticker">
         <svg viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <path id="topArc2" d="M 150,150 m -98,0 a 98,98 0 1,1 196,0"/>
-          </defs>
+          <defs><path id="topArc2" d="M 150,150 m -98,0 a 98,98 0 1,1 196,0"/></defs>
           <circle cx="153" cy="155" r="118" fill="rgba(0,0,0,0.18)"/>
           <circle cx="150" cy="150" r="118" fill="#f5c842"/>
           <circle cx="150" cy="150" r="112" fill="none" stroke="#e8a800" stroke-width="3.5" stroke-dasharray="5.5 3.5"/>
@@ -478,6 +585,14 @@
   </div>
 </section>
 
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item"><span class="stat-num">10</span><span class="stat-label">Chapters</span></div>
+  <div class="stat-item"><span class="stat-num">~2hr</span><span class="stat-label">Read Time</span></div>
+  <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">Retailers</span></div>
+  <div class="stat-item"><span class="stat-num">0</span><span class="stat-label">Jargon</span></div>
+</div>
+
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="about-grid">
@@ -489,13 +604,13 @@
       <div class="section-label">About the Author</div>
       <h2>A creator who never<br><em>stopped asking why.</em></h2>
       <p>Sam Brooker is an accomplished singer-songwriter and hit song music publisher whose journey has taken him from Nashville stages to the blockchain. His publishing company's first major placement was "Cruise" by Florida Georgia Line — the longest-running #1 country song of all time.</p>
-      <p>After exploring entrepreneurship with KOKOS, Nashville's first low-allergen plant-based ice cream shop, Sam found himself down a crypto rabbit hole in 2018. He didn't just invest — he built. Smart contracts, DeFi tokens, autonomous stable assets, blockchain philanthropy through BlockFoundation.us.</p>
+      <p>After exploring entrepreneurship with KOKOS, Nashville's first low-allergen plant-based ice cream shop, Sam found himself down a crypto rabbit hole in 2018. He didn't just invest — he built. Smart contracts, DeFi tokens, autonomous stable assets, and blockchain philanthropy through BlockFoundation.us.</p>
       <p><em>From Songs to Smart Contracts</em> is what happens when a songwriter turns his natural gift for making the complicated feel human toward the world's most misunderstood technology.</p>
       <div class="fun-facts">
         <div class="fun-fact"><div class="fact-dot"></div><span>Published "Cruise" — longest-running #1 country song of all time</span></div>
         <div class="fun-fact"><div class="fact-dot"></div><span>Launched Nashville's first low-allergen plant-based ice cream shop</span></div>
         <div class="fun-fact"><div class="fact-dot"></div><span>Founder of BlockFoundation.us — blockchain for philanthropy</span></div>
-        <div class="fun-fact"><div class="fact-dot"></div><span>Built autonomous,Immutable DeFi protocols with no admin keys, no Owner</span></div>
+        <div class="fun-fact"><div class="fact-dot"></div><span>Built autonomous, immutable DeFi protocols with no admin keys, no owner</span></div>
       </div>
     </div>
   </div>
@@ -514,13 +629,13 @@
     <div class="chapter-card fade-up"><div class="ch-num">6</div><div class="ch-title">What Is a Wallet?</div><div class="ch-desc">Seed phrases, private keys, hot vs cold wallets — and why the first one Sam created felt like opening a secret vault with no instructions.</div></div>
     <div class="chapter-card fade-up"><div class="ch-num">7</div><div class="ch-title">Not Your Keys, Not Your Coins</div><div class="ch-desc">The day a big exchange froze withdrawals. Why self-custody isn't paranoia — it's the whole point of crypto.</div></div>
     <div class="chapter-card fade-up"><div class="ch-num">8</div><div class="ch-title">The Crypto Community</div><div class="ch-desc">DAOs, Discord servers, meme chains and mission statements. Why crypto is a movement pretending to be a market.</div></div>
-    <div class="chapter-card fade-up"><div class="ch-num">9</div><div class="ch-title">Digital Identity & Web3</div><div class="ch-desc">ENS names, on-chain reputation, and why your wallet is becoming the most honest profile you've ever had.</div></div>
+    <div class="chapter-card fade-up"><div class="ch-num">9</div><div class="ch-title">Digital Identity &amp; Web3</div><div class="ch-desc">ENS names, on-chain reputation, and why your wallet is becoming the most honest profile you've ever had.</div></div>
     <div class="chapter-card fade-up"><div class="ch-num">10</div><div class="ch-title">What's Next — For You</div><div class="ch-desc">CBDCs, the great pretenders, and two very different futures. Your invitation to step onto the field.</div></div>
   </div>
 </section>
 
 <!-- EXCERPT -->
-<section style="padding: 4rem 8vw; background: var(--darker);">
+<section style="padding: 4rem 8vw; background: var(--darkest);">
   <div class="section-label" style="text-align:center">A taste of the book</div>
   <div class="excerpt-block fade-up">
     "At its core, crypto is just money on the internet — with one very important twist: It's money that doesn't need permission."
@@ -533,9 +648,21 @@
   <div class="section-label">Reader Reactions</div>
   <h2>What people are <em>saying</em></h2>
   <div class="quotes-grid">
-    <div class="quote-card fade-up"><div class="quote-text">Clear, honest, and human — the book crypto needed.</div><div class="quote-attr">— E.V.</div></div>
-    <div class="quote-card fade-up"><div class="quote-text">A beginner's guide to crypto that feels more like a conversation than a lecture.</div><div class="quote-attr">— M.B.</div></div>
-    <div class="quote-card fade-up"><div class="quote-text">Finally, a crypto book that explains the <em>why</em>, not just the hype.</div><div class="quote-attr">— J.A.</div></div>
+    <div class="quote-card fade-up">
+      <span class="quote-stars">★★★★★</span>
+      <div class="quote-text">Clear, honest, and human — the book crypto needed.</div>
+      <div class="quote-attr">— E.V.</div>
+    </div>
+    <div class="quote-card fade-up">
+      <span class="quote-stars">★★★★★</span>
+      <div class="quote-text">A beginner's guide to crypto that feels more like a conversation than a lecture.</div>
+      <div class="quote-attr">— M.B.</div>
+    </div>
+    <div class="quote-card fade-up">
+      <span class="quote-stars">★★★★★</span>
+      <div class="quote-text">Finally, a crypto book that explains the <em>why</em>, not just the hype.</div>
+      <div class="quote-attr">— J.A.</div>
+    </div>
   </div>
 </section>
 
@@ -545,25 +672,27 @@
   <h2>Ready to start?</h2>
   <p>Paperback available now. No prior crypto knowledge required — just curiosity and the willingness to ask why.</p>
   <div class="btn-group" style="justify-content:center; flex-wrap:wrap;">
-    <a href="https://shop.ingramspark.com/b/084?params=GuWLXzp6C28JHRVvd6HSxYzZKN4lW31BPGZxVStxATQ" target="_blank" class="btn btn-primary">IngramSpark</a>
+    <a href="https://shop.ingramspark.com/b/084?params=GuWLXzp6C28JHRVvd6HSxYzZKN4lW31BPGZxVStxATQ" target="_blank" class="btn btn-primary">Get the Book →</a>
     <a href="https://www.barnesandnoble.com/w/from-songs-to-smart-contracts-an-introduction-to-cyrpto-sam-brooker/1149599382?ean=9798234007902" target="_blank" class="btn btn-outline">Barnes &amp; Noble</a>
     <a href="https://www.booksamillion.com/p/From-Songs-Smart-Contracts-Introduction/Sam-Brooker/9798234007902" target="_blank" class="btn btn-outline">Books-A-Million</a>
     <div class="btn btn-coming-soon">🎧 Audiobook — Coming Soon</div>
   </div>
-  <p class="isbn-display">ISBN: 979-8-234-00790-2 &nbsp;·&nbsp; Paperback &nbsp;·&nbsp; Published 2026</p>
+  <span class="isbn-display">ISBN: 979-8-234-00790-2 &nbsp;·&nbsp; Paperback &nbsp;·&nbsp; Published 2026</span>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">Sam Brooker</div>
   <div>© 2026 Sam Brooker · All rights reserved</div>
-  <div><a href="https://blockfoundation.us" target="_blank">BlockFoundation.us</a></div>
+  <div>
+    <a href="https://blockfoundation.us" target="_blank">BlockFoundation.us</a>
+  </div>
 </footer>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.1 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 
